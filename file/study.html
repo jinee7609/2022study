@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e8f1ff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="지식마루" />
+    <title>지식마루 | 공부하기</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">공부 페이지</p>
+          <h1>교과별 핵심 개념 정리</h1>
+        </div>
+        <nav class="top-nav">
+          <a href="index.html">홈</a>
+          <a class="active" href="study.html">공부</a>
+          <a href="quiz.html">퀴즈</a>
+        </nav>
+      </header>
+
+      <section class="tab-bar" id="subjectTabs" aria-label="교과 선택"></section>
+      <section class="sub-tab-bar" id="studyViewTabs" aria-label="학습 보기 선택"></section>
+      <section class="content-card" id="studyContent"></section>
+      <section class="content-card">
+        <h3>문서 흐름에 따른 학습 순서</h3>
+        <ol>
+          <li>교과 목표를 먼저 확인한다.</li>
+          <li>내용체계에서 핵심 개념의 흐름을 파악한다.</li>
+          <li>성취기준을 통해 무엇을 할 수 있어야 하는지 확인한다.</li>
+          <li>평가와 수업 방법을 통해 학습 방향을 정리한다.</li>
+        </ol>
+      </section>
+      <section class="content-card">
+        <h3>개념 정리 포인트</h3>
+        <ul>
+          <li>각 교과의 핵심 개념과 성취기준을 연결해 이해한다.</li>
+          <li>문제 상황과 실제 사례를 바탕으로 적용 능력을 키운다.</li>
+          <li>평가와 수업 방법까지 함께 보면서 학습 방향을 정리한다.</li>
+        </ul>
+      </section>
+      <section class="content-card pdf-section">
+        <h3>원본 PDF 자료</h3>
+        <p>아래 링크에서 원본 PDF 파일을 직접 열어 원문을 확인할 수 있습니다.</p>
+        <ul>
+          <li><a href="01_2022_middle.pdf" target="_blank" rel="noopener">중학교 정보 PDF 열기</a></li>
+          <li><a href="02_2022_high.pdf" target="_blank" rel="noopener">고등학교 정보 PDF 열기</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <script src="curriculum-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
