@@ -475,20 +475,22 @@ function normalizeAnswer(text) {
     .replace(/[^가-힣a-z0-9]/g, '');
 }
 
-function checkBlankAnswer(item, userInput) {
-  const trimmed = userInput.trim();
-  if (!trimmed) {
-    return { correct: false, message: '답안을 입력해 주세요.' };
-  }
-
+function isBlankCorrect(answer, userInput) {
+  const trimmed = (userInput || '').trim();
+  if (!trimmed) return false;
   const normalizedInput = normalizeAnswer(trimmed);
-  const normalizedAnswer = normalizeAnswer(item.answer);
-  const correct = normalizedInput.includes(normalizedAnswer) || normalizedAnswer.includes(normalizedInput);
+  const normalizedAnswer = normalizeAnswer(answer);
+  return normalizedInput.includes(normalizedAnswer) || normalizedAnswer.includes(normalizedInput);
+}
 
-  return {
-    correct,
-    message: correct ? '정답입니다!' : '오답입니다.'
-  };
+function renderBlankQuestionHtml(item) {
+  const answers = item.answers || [];
+  const parts = item.question.split('＿＿＿＿');
+  return parts.map((part, index) => {
+    if (index === parts.length - 1) return part;
+    const widthGuess = Math.max(4, Math.min(14, (answers[index] || '').length + 2));
+    return `${part}<input class="quiz-input-inline" type="text" size="${widthGuess}" data-blank-index="${index}" />`;
+  }).join('');
 }
 
 function renderSubjectQuizPanel(subjectKey) {
@@ -511,9 +513,8 @@ function renderSubjectQuizPanel(subjectKey) {
       <div class="quiz-list">
         ${items.map((item, index) => `
           <article class="quiz-card" data-subject="${subjectKey}" data-index="${index}">
-            <h3>${index + 1}. ${item.question}</h3>
+            <h3>${index + 1}. ${renderBlankQuestionHtml(item)}</h3>
             ${item.area ? `<p class="quiz-type">[${item.area}]</p>` : ''}
-            <input class="quiz-input" type="text" placeholder="빈칸에 들어갈 말을 입력하세요." />
             <button class="submit-btn" type="button">정답 확인</button>
             <div class="feedback" id="feedback-${subjectKey}-${currentView}-${index}"></div>
             <div class="answer-box" id="answer-${subjectKey}-${currentView}-${index}"></div>
@@ -534,16 +535,31 @@ function wireQuizPanel(subjectKey) {
   items.forEach((item, index) => {
     const card = cards[index];
     if (!card) return;
-    const input = card.querySelector('.quiz-input');
+    const answers = item.answers || [];
+    const inputs = card.querySelectorAll('.quiz-input-inline');
     const button = card.querySelector('.submit-btn');
     const feedback = document.getElementById(`feedback-${subjectKey}-${currentView}-${index}`);
     const answerBox = document.getElementById(`answer-${subjectKey}-${currentView}-${index}`);
 
     button.addEventListener('click', () => {
-      const result = checkBlankAnswer(item, input.value);
-      feedback.className = `feedback ${result.correct ? 'correct' : 'wrong'}`;
-      feedback.textContent = result.message;
-      answerBox.textContent = result.correct ? '' : `모범 답안: ${item.answer}`;
+      let correctCount = 0;
+      const wrongAnswers = [];
+
+      inputs.forEach((input, blankIndex) => {
+        const correct = isBlankCorrect(answers[blankIndex], input.value);
+        input.classList.remove('correct', 'wrong');
+        input.classList.add(correct ? 'correct' : 'wrong');
+        if (correct) {
+          correctCount += 1;
+        } else {
+          wrongAnswers.push(`빈칸 ${blankIndex + 1}: ${answers[blankIndex]}`);
+        }
+      });
+
+      const allCorrect = correctCount === answers.length;
+      feedback.className = `feedback ${allCorrect ? 'correct' : 'wrong'}`;
+      feedback.textContent = `${correctCount} / ${answers.length}개 정답입니다.`;
+      answerBox.textContent = wrongAnswers.length ? `모범 답안 — ${wrongAnswers.join(' · ')}` : '';
     });
   });
 }

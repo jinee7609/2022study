@@ -263,19 +263,34 @@ h2 {
   font-weight: 700;
 }
 
-.quiz-input {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px 14px;
-  font-size: 0.98rem;
+.quiz-input-inline {
+  display: inline-block;
+  width: auto;
+  min-width: 70px;
+  margin: 0 3px;
+  padding: 4px 8px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
   font-family: inherit;
   background: #fff;
+  vertical-align: baseline;
 }
 
-.quiz-input:focus {
-  outline: 2px solid var(--accent);
+.quiz-input-inline:focus {
+  outline: none;
   border-color: var(--primary);
+}
+
+.quiz-input-inline.correct {
+  border-color: var(--good);
+  background: #eefbf2;
+}
+
+.quiz-input-inline.wrong {
+  border-color: var(--bad);
+  background: #fff2f2;
 }
 
 .submit-btn {
