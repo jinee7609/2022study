@@ -7,36 +7,36 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="지식마루" />
-    <title>지식마루 | 퀴즈</title>
+    <title>지식마루 | 퀴즈2</title>
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="icon.svg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body data-page="quiz2">
     <div class="page-shell">
       <header class="page-header">
         <div>
-          <p class="eyebrow">퀴즈 페이지</p>
-          <h1>교과별 문제로 확인하기</h1>
+          <p class="eyebrow">퀴즈2 페이지</p>
+          <h1>백지에 인출하며 확인하기</h1>
         </div>
         <nav class="top-nav">
           <a href="index.html">홈</a>
           <a href="study.html">공부</a>
-          <a class="active" href="quiz.html">퀴즈</a>
-          <a href="quiz2.html">퀴즈2</a>
+          <a href="quiz.html">퀴즈</a>
+          <a class="active" href="quiz2.html">퀴즈2</a>
         </nav>
       </header>
 
       <div class="tab-nav-group">
         <section class="tab-bar" id="schoolTabs" aria-label="학교급 선택"></section>
         <section class="subject-tab-bar" id="subjectTabs" aria-label="과목 선택"></section>
-        <section class="sub-tab-bar" id="quizViewTabs" aria-label="학습 보기 선택"></section>
+        <section class="sub-tab-bar" id="recallViewTabs" aria-label="학습 보기 선택"></section>
       </div>
-      <section class="content-card" id="quizGuide"></section>
-      <section class="content-card" id="quizContent"></section>
+      <section class="content-card" id="recallGuide"></section>
+      <section class="content-card" id="recallContent"></section>
     </div>
 
-    <script src="quiz-data.js"></script>
+    <script src="curriculum-data.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

@@ -303,6 +303,12 @@ let currentSchool = schools[0].key;
 let currentSubject = schools[0].subjectKeys[0];
 let currentView = 'goal';
 
+function getPageRenderer() {
+  if (pageType === 'study') return renderStudy;
+  if (pageType === 'quiz2') return renderRecall;
+  return renderQuiz;
+}
+
 function renderSchoolTabs() {
   const tabBar = document.getElementById('schoolTabs');
   if (!tabBar) return;
@@ -318,13 +324,9 @@ function renderSchoolTabs() {
       const school = schools.find((item) => item.key === currentSchool) || schools[0];
       currentSubject = school.subjectKeys[0];
       renderSchoolTabs();
-      if (pageType === 'study') {
-        renderSubjectTabs('subjectTabs', renderStudy);
-        renderStudy();
-      } else {
-        renderSubjectTabs('subjectTabs', renderQuiz);
-        renderQuiz();
-      }
+      const renderFn = getPageRenderer();
+      renderSubjectTabs('subjectTabs', renderFn);
+      renderFn();
     });
   });
 }
@@ -586,11 +588,173 @@ function renderQuiz() {
   wireQuizPanel(currentSubject);
 }
 
+function buildRecallChunks(curriculum, view) {
+  if (view === 'goal') {
+    return [{
+      title: '가·나. 성격과 목표',
+      html: `
+        <h4>가. 성격</h4>
+        ${curriculum.personality.map((p) => `<p>${p}</p>`).join('')}
+        <h4>나. 목표</h4>
+        ${curriculum.goalIntro.map((p) => `<p>${p}</p>`).join('')}
+        <ol>
+          ${curriculum.goalItems.map((item) => `<li>${stripNumberPrefix(item)}</li>`).join('')}
+        </ol>
+      `
+    }];
+  }
+  if (view === 'content') {
+    return curriculum.contentAreas.map((area, index) => ({
+      title: `(${index + 1}) ${area.name}`,
+      html: `
+        <p class="area-label">핵심 아이디어</p>
+        <ul>${area.coreIdeas.map((idea) => `<li>${idea}</li>`).join('')}</ul>
+        <div class="study-highlights study-highlights-3">
+          <div class="study-highlight-card">
+            <h4>지식·이해</h4>
+            <ul>${area.knowledge.map((item) => `<li>${item}</li>`).join('')}</ul>
+          </div>
+          <div class="study-highlight-card">
+            <h4>과정·기능</h4>
+            <ul>${area.process.map((item) => `<li>${item}</li>`).join('')}</ul>
+          </div>
+          <div class="study-highlight-card">
+            <h4>가치·태도</h4>
+            <ul>${area.values.map((item) => `<li>${item}</li>`).join('')}</ul>
+          </div>
+        </div>
+      `
+    }));
+  }
+  if (view === 'standard') {
+    return curriculum.standardAreas.map((area, index) => ({
+      title: `(${index + 1}) ${area.name}`,
+      html: `
+        <p class="area-label">성취기준</p>
+        <ul>${area.standards.map((item) => `<li>${item}</li>`).join('')}</ul>
+        ${area.explanations.length ? `
+          <p class="area-label">성취기준 해설</p>
+          <ul>${area.explanations.map((item) => `<li>${item}</li>`).join('')}</ul>
+        ` : ''}
+        ${area.considerations.length ? `
+          <p class="area-label">성취기준 적용 시 고려 사항</p>
+          <ul>${area.considerations.map((item) => `<li>${item}</li>`).join('')}</ul>
+        ` : ''}
+      `
+    }));
+  }
+  if (view === 'teach') {
+    return [{
+      title: '교수·학습',
+      html: `
+        <h4>(1) 교수·학습의 방향</h4>
+        <ul>${curriculum.teachDirection.map((item) => `<li>${item}</li>`).join('')}</ul>
+        <h4>(2) 교수·학습 방법</h4>
+        <ul>${curriculum.teachMethod.map((item) => `<li>${item}</li>`).join('')}</ul>
+      `
+    }];
+  }
+  return [{
+    title: '평가',
+    html: `
+      <h4>(1) 평가의 방향</h4>
+      <ul>${curriculum.evalDirection.map((item) => `<li>${item}</li>`).join('')}</ul>
+      <h4>(2) 평가 방법</h4>
+      <ul>${curriculum.evalMethod.map((item) => `<li>${item}</li>`).join('')}</ul>
+    `
+  }];
+}
+
+function renderSubjectRecallPanel(subjectKey) {
+  const subject = subjects.find((item) => item.key === subjectKey);
+  const curriculum = (typeof curriculumFull !== 'undefined'
+    ? curriculumFull.find((item) => item.key === subjectKey)
+    : null);
+  if (!subject) return '';
+
+  if (!curriculum) {
+    return `
+      <article class="subject-panel">
+        <h3>${subject.name}</h3>
+        <p>교육과정 원문 데이터를 불러오지 못했습니다.</p>
+      </article>
+    `;
+  }
+
+  const chunks = buildRecallChunks(curriculum, currentView);
+
+  return `
+    <article class="subject-panel">
+      <h3>${subject.name}</h3>
+      ${chunks.map((chunk, index) => `
+        <article class="recall-card" data-subject="${subjectKey}" data-index="${index}">
+          <h4>${chunk.title}</h4>
+          <p class="recall-hint">위 주제에 대해 기억나는 내용을 최대한 자세히 백지에 적어보세요.</p>
+          <textarea class="recall-textarea" rows="8" placeholder="여기에 자유롭게 적어보세요..."></textarea>
+          <div class="recall-actions">
+            <button class="submit-btn reveal-btn" type="button">원문 확인</button>
+            <button class="clear-btn" type="button">지우기</button>
+          </div>
+          <div class="recall-answer">${chunk.html}</div>
+        </article>
+      `).join('')}
+    </article>
+  `;
+}
+
+function wireRecallPanel(subjectKey) {
+  const container = document.getElementById('recallContent');
+  if (!container) return;
+  container.querySelectorAll(`.recall-card[data-subject="${subjectKey}"]`).forEach((card) => {
+    const revealBtn = card.querySelector('.reveal-btn');
+    const clearBtn = card.querySelector('.clear-btn');
+    const answer = card.querySelector('.recall-answer');
+    const textarea = card.querySelector('.recall-textarea');
+
+    revealBtn.addEventListener('click', () => {
+      const showing = answer.classList.contains('visible');
+      answer.classList.toggle('visible', !showing);
+      revealBtn.textContent = showing ? '원문 확인' : '원문 숨기기';
+    });
+
+    clearBtn.addEventListener('click', () => {
+      textarea.value = '';
+      textarea.focus();
+    });
+  });
+}
+
+function renderRecall() {
+  const container = document.getElementById('recallContent');
+  const guide = document.getElementById('recallGuide');
+  if (!container) return;
+  const subject = subjects.find((item) => item.key === currentSubject) || subjects[0];
+
+  if (guide) {
+    guide.innerHTML = `
+      <h3>${subject.name} 백지 인출 안내</h3>
+      <p>주제만 보고 빈 종이에 떠올릴 수 있는 내용을 최대한 적어본 뒤, 원문과 비교해 보세요.</p>
+      <ul>
+        <li>힌트 없이 먼저 최대한 써 본 다음 '원문 확인'을 눌러 비교합니다.</li>
+        <li>공부·퀴즈 탭과 동일한 순서(성격·목표 → 내용체계 → 성취기준 → 교수·학습 → 평가)로 구성되어 있습니다.</li>
+      </ul>
+    `;
+  }
+
+  container.innerHTML = renderSubjectRecallPanel(currentSubject);
+  wireRecallPanel(currentSubject);
+}
+
 if (pageType === 'study') {
   renderSchoolTabs();
   renderSubjectTabs('subjectTabs', renderStudy);
   renderViewTabs('studyViewTabs', renderStudy);
   renderStudy();
+} else if (pageType === 'quiz2') {
+  renderSchoolTabs();
+  renderSubjectTabs('subjectTabs', renderRecall);
+  renderViewTabs('recallViewTabs', renderRecall);
+  renderRecall();
 } else {
   document.body.dataset.page = 'quiz';
   renderSchoolTabs();
