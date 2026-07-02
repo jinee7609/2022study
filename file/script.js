@@ -55,46 +55,6 @@ const subjects = [
     examples: [
       '예: 개인정보 보호를 위해 비밀번호 관리와 로그아웃 습관을 실천한다.',
       '예: 디지털 환경에서 저작권과 예절을 지키는 태도를 설명한다.'
-    ],
-    quiz: [
-      {
-        type: 'short',
-        question: '컴퓨팅 사고에서 문제를 작은 단위로 나누는 과정을 무엇이라고 하나요?',
-        answer: '분해'
-      },
-      {
-        type: 'essay',
-        question: '인터넷 사용 시 개인정보 보호를 위해 지켜야 할 실천 방안을 두 가지 이상 서술하시오.',
-        answer: '비밀번호를 안전하게 관리하고, 공용 기기에서는 로그아웃하며, 의심스러운 링크를 클릭하지 않는다.',
-        keywords: ['비밀번호', '로그아웃', '의심', '링크']
-      },
-      {
-        type: 'short',
-        question: '인터넷에서 다른 사람의 정보를 훔치거나 악의적으로 사용하는 행위를 무엇이라고 하나요?',
-        answer: '사이버 범죄'
-      },
-      {
-        type: 'essay',
-        question: '디지털 윤리 관점에서 올바른 정보 이용 태도를 두 가지 이상 서술하시오.',
-        answer: '저작권을 존중하고, 타인의 개인정보를 함부로 공개하지 않으며, 사실 확인 후 정보를 공유한다.',
-        keywords: ['저작권', '개인정보', '사실', '공유']
-      },
-      {
-        type: 'short',
-        question: '정보를 효율적으로 관리하고 전달하기 위해 기호나 그림으로 나타내는 방식을 무엇이라고 하나요?',
-        answer: '표현'
-      },
-      {
-        type: 'essay',
-        question: '정보 사회에서 디지털 시민성의 의미를 서술하시오.',
-        answer: '디지털 시민성은 디지털 환경에서 책임감 있게 참여하고, 규범을 지키며, 타인과 협력하는 태도이다.',
-        keywords: ['책임', '규범', '협력', '태도']
-      },
-      {
-        type: 'short',
-        question: '인터넷에서 정보를 찾을 때 출처를 확인하는 이유는 무엇인가요?',
-        answer: '신뢰성 확인'
-      }
     ]
   },
   {
@@ -152,46 +112,6 @@ const subjects = [
     examples: [
       '예: 데이터를 표로 정리해 원하는 정보를 찾는 과정을 설명한다.',
       '예: 네트워크에서 패킷이 이동하는 과정을 순서대로 나타낸다.'
-    ],
-    quiz: [
-      {
-        type: 'short',
-        question: '데이터베이스에서 같은 내용을 여러 번 저장하지 않고 효율적으로 관리하기 위한 방법은 무엇인가요?',
-        answer: '정규화'
-      },
-      {
-        type: 'essay',
-        question: '네트워크에서 정보가 전달되는 기본 단위를 설명하고, 그 역할을 서술하시오.',
-        answer: '패킷은 데이터를 작은 단위로 나누어 전송하는 기본 단위이다.',
-        keywords: ['패킷', '전송', '단위']
-      },
-      {
-        type: 'short',
-        question: '데이터를 효율적으로 저장하고 관리하기 위해 관련된 정보를 표로 정리하는 구조를 무엇이라고 하나요?',
-        answer: '테이블'
-      },
-      {
-        type: 'essay',
-        question: '알고리즘이 중요한 이유를 두 가지 이상 서술하시오.',
-        answer: '알고리즘은 문제를 체계적으로 해결하고, 효율성과 정확성을 높이며, 반복 작업을 자동화한다.',
-        keywords: ['체계적', '효율', '정확', '자동화']
-      },
-      {
-        type: 'short',
-        question: '컴퓨터가 문제를 해결하는 절차를 순서대로 표현한 것을 무엇이라고 하나요?',
-        answer: '알고리즘'
-      },
-      {
-        type: 'essay',
-        question: '자료 구조가 중요한 이유를 서술하시오.',
-        answer: '자료 구조는 데이터를 효율적으로 저장하고 관리하여 처리 속도와 활용성을 높인다.',
-        keywords: ['저장', '관리', '속도', '활용']
-      },
-      {
-        type: 'short',
-        question: '네트워크에서 정보가 전달되는 경로를 결정하는 장치는 무엇인가요?',
-        answer: '라우터'
-      }
     ]
   },
   {
@@ -249,46 +169,6 @@ const subjects = [
     examples: [
       '예: 지도학습으로 이미지 분류 문제를 해결하는 과정을 설명한다.',
       '예: AI가 편향된 데이터를 학습했을 때 나타날 수 있는 문제를 분석한다.'
-    ],
-    quiz: [
-      {
-        type: 'short',
-        question: '정답 레이블이 있는 데이터로 학습하는 방식을 무엇이라고 하나요?',
-        answer: '지도학습'
-      },
-      {
-        type: 'essay',
-        question: 'AI 시스템이 편향된 데이터를 학습할 경우 발생할 수 있는 문제를 서술하시오.',
-        answer: '편향된 데이터로 학습하면 결과가 불공정하거나 차별적일 수 있다.',
-        keywords: ['편향', '불공정', '차별']
-      },
-      {
-        type: 'short',
-        question: '정답이 이미 주어진 데이터로 학습하는 인공지능의 학습 방식은 무엇인가요?',
-        answer: '지도학습'
-      },
-      {
-        type: 'essay',
-        question: '인공지능 활용 시 개인정보 보호가 중요한 이유를 서술하시오.',
-        answer: '개인정보가 유출되면 사생활 침해와 신뢰 저하로 이어질 수 있다.',
-        keywords: ['개인정보', '유출', '사생활', '신뢰']
-      },
-      {
-        type: 'short',
-        question: '인공지능이 사람의 경험을 바탕으로 학습하는 방식 중 데이터와 정답이 함께 주어지는 학습 방법은 무엇인가요?',
-        answer: '지도학습'
-      },
-      {
-        type: 'essay',
-        question: 'AI 윤리에서 공정성이 중요한 이유를 서술하시오.',
-        answer: '공정성이 없으면 특정 집단에 불공정한 결과가 나타날 수 있어 사회적 갈등을 초래할 수 있다.',
-        keywords: ['공정', '불공정', '집단', '갈등']
-      },
-      {
-        type: 'short',
-        question: '인공지능이 사람처럼 판단을 내리기 위해 사용하는 대표적인 데이터 기반 학습 방법은 무엇인가요?',
-        answer: '머신러닝'
-      }
     ]
   },
   {
@@ -345,46 +225,6 @@ const subjects = [
     examples: [
       '예: 설문 조사 결과를 표와 그래프로 정리해 경향을 파악한다.',
       '예: 결측값과 이상값을 처리한 뒤 분석 결과를 비교한다.'
-    ],
-    quiz: [
-      {
-        type: 'short',
-        question: '데이터 분석 전에 불필요한 값이나 오류를 다듬는 과정을 무엇이라고 하나요?',
-        answer: '전처리'
-      },
-      {
-        type: 'essay',
-        question: '데이터의 중심 경향을 나타내는 대표값 중 하나를 골라 그 의미를 서술하시오.',
-        answer: '평균은 데이터 값을 모두 더한 뒤 개수로 나눈 값이다.',
-        keywords: ['평균', '값', '개수']
-      },
-      {
-        type: 'short',
-        question: '데이터에서 값이 비어 있거나 누락된 경우를 무엇이라고 하나요?',
-        answer: '결측값'
-      },
-      {
-        type: 'essay',
-        question: '데이터 시각화가 중요한 이유를 서술하시오.',
-        answer: '데이터 시각화는 패턴과 경향을 빠르게 파악하게 해주어 판단을 돕는다.',
-        keywords: ['패턴', '경향', '판단', '돕는다']
-      },
-      {
-        type: 'short',
-        question: '데이터의 값이 얼마나 퍼져 있는지를 나타내는 대표적인 통계량은 무엇인가요?',
-        answer: '분산'
-      },
-      {
-        type: 'essay',
-        question: '데이터 분석 과정에서 전처리가 중요한 이유를 서술하시오.',
-        answer: '전처리는 오류와 이상값을 정리하여 분석 결과의 신뢰성을 높이기 때문이다.',
-        keywords: ['오류', '이상값', '신뢰성', '높인다']
-      },
-      {
-        type: 'short',
-        question: '데이터를 한눈에 비교하기 위해 그림이나 그래프로 나타내는 활동을 무엇이라고 하나요?',
-        answer: '시각화'
-      }
     ]
   },
   {
@@ -441,76 +281,14 @@ const subjects = [
     examples: [
       '예: 앱 개발 과정에서 요구 분석과 테스트 단계의 역할을 설명한다.',
       '예: 저작권을 존중하며 안전하게 소프트웨어를 사용하는 태도를 정리한다.'
-    ],
-    quiz: [
-      {
-        type: 'short',
-        question: '프로그램에서 오류를 찾고 수정하는 과정을 무엇이라고 하나요?',
-        answer: '디버깅'
-      },
-      {
-        type: 'essay',
-        question: '소프트웨어를 사용할 때 저작권을 존중해야 하는 이유를 서술하시오.',
-        answer: '저작권을 존중하지 않으면 창작자의 권리가 침해될 수 있다.',
-        keywords: ['저작권', '권리', '침해']
-      },
-      {
-        type: 'short',
-        question: '프로그램의 오류를 찾아 수정하는 과정을 무엇이라고 하나요?',
-        answer: '디버깅'
-      },
-      {
-        type: 'essay',
-        question: '소프트웨어를 안전하게 사용하기 위해 지켜야 할 태도를 서술하시오.',
-        answer: '정식 인증된 프로그램을 사용하고, 개인 정보 보호와 보안 정책을 지켜야 한다.',
-        keywords: ['인증', '개인정보', '보안', '정책']
-      },
-      {
-        type: 'short',
-        question: '소프트웨어가 사용자의 요구를 만족시키도록 설계하고 구현하는 과정을 무엇이라고 하나요?',
-        answer: '개발'
-      },
-      {
-        type: 'essay',
-        question: '소프트웨어 유지보수가 중요한 이유를 서술하시오.',
-        answer: '유지보수는 소프트웨어의 오류를 수정하고 성능을 개선하며, 변화하는 환경에 적응하게 한다.',
-        keywords: ['오류', '성능', '개선', '환경']
-      },
-      {
-        type: 'short',
-        question: '소프트웨어를 무단으로 복제하거나 배포하는 행위는 무엇과 관련이 있나요?',
-        answer: '저작권'
-      }
     ]
   }
 ];
 
-const pageType = document.body.dataset.page || (window.location.pathname.includes('quiz') ? 'quiz' : 'study');
-const initialSubject = subjects[0].key;
-let currentSubject = initialSubject;
-let currentView = 'goal';
-
-function renderTabs() {
-  const tabBar = document.getElementById('subjectTabs');
-  if (!tabBar) return;
-  tabBar.innerHTML = subjects.map((subject) => `
-    <button class="tab-btn ${subject.key === currentSubject ? 'active' : ''}" data-subject="${subject.key}">
-      ${subject.name}
-    </button>
-  `).join('');
-
-  tabBar.querySelectorAll('.tab-btn').forEach((button) => {
-    button.addEventListener('click', () => {
-      currentSubject = button.dataset.subject;
-      renderTabs();
-      if (pageType === 'study') {
-        renderStudy();
-      } else {
-        renderQuiz();
-      }
-    });
-  });
-}
+const schools = [
+  { key: 'middle', name: '중학교', subjectKeys: ['middle-info'] },
+  { key: 'high', name: '고등학교', subjectKeys: ['high-info', 'ai-basic', 'data-science', 'software-life'] }
+];
 
 const studyViews = [
   { key: 'goal', label: '1. 성격·목표' },
@@ -520,8 +298,34 @@ const studyViews = [
   { key: 'evaluation', label: '3. 평가' }
 ];
 
-function renderStudyViewTabs() {
-  const container = document.getElementById('studyViewTabs');
+const pageType = document.body.dataset.page || (window.location.pathname.includes('quiz') ? 'quiz' : 'study');
+let currentSchool = schools[0].key;
+let currentView = 'goal';
+
+function renderSchoolTabs() {
+  const tabBar = document.getElementById('schoolTabs');
+  if (!tabBar) return;
+  tabBar.innerHTML = schools.map((school) => `
+    <button class="tab-btn ${school.key === currentSchool ? 'active' : ''}" data-school="${school.key}">
+      ${school.name}
+    </button>
+  `).join('');
+
+  tabBar.querySelectorAll('.tab-btn').forEach((button) => {
+    button.addEventListener('click', () => {
+      currentSchool = button.dataset.school;
+      renderSchoolTabs();
+      if (pageType === 'study') {
+        renderStudy();
+      } else {
+        renderQuiz();
+      }
+    });
+  });
+}
+
+function renderViewTabs(containerId, onChange) {
+  const container = document.getElementById(containerId);
   if (!container) return;
   container.innerHTML = studyViews.map((view) => `
     <button class="sub-tab ${currentView === view.key ? 'active' : ''}" data-view="${view.key}">${view.label}</button>
@@ -530,8 +334,8 @@ function renderStudyViewTabs() {
   container.querySelectorAll('.sub-tab').forEach((button) => {
     button.addEventListener('click', () => {
       currentView = button.dataset.view;
-      renderStudyViewTabs();
-      renderStudy();
+      renderViewTabs(containerId, onChange);
+      onChange();
     });
   });
 }
@@ -540,13 +344,12 @@ function stripNumberPrefix(text) {
   return text.replace(/^\(\d+\)\s*/, '');
 }
 
-function renderStudy() {
-  const container = document.getElementById('studyContent');
-  if (!container) return;
-  const subject = subjects.find((item) => item.key === currentSubject) || subjects[0];
+function renderSubjectStudyPanel(subjectKey) {
+  const subject = subjects.find((item) => item.key === subjectKey);
   const curriculum = (typeof curriculumFull !== 'undefined'
-    ? curriculumFull.find((item) => item.key === currentSubject)
+    ? curriculumFull.find((item) => item.key === subjectKey)
     : null);
+  if (!subject) return '';
 
   let contentHtml = '';
 
@@ -620,7 +423,7 @@ function renderStudy() {
     `;
   }
 
-  container.innerHTML = `
+  return `
     <article class="subject-panel">
       <h3>${subject.name}</h3>
       <p>${subject.summary}</p>
@@ -629,13 +432,20 @@ function renderStudy() {
   `;
 }
 
+function renderStudy() {
+  const container = document.getElementById('studyContent');
+  if (!container) return;
+  const school = schools.find((item) => item.key === currentSchool) || schools[0];
+  container.innerHTML = school.subjectKeys.map((key) => renderSubjectStudyPanel(key)).join('');
+}
+
 function normalizeAnswer(text) {
   return (text || '')
     .toLowerCase()
     .replace(/[^가-힣a-z0-9]/g, '');
 }
 
-function checkQuizAnswer(item, userInput) {
+function checkBlankAnswer(item, userInput) {
   const trimmed = userInput.trim();
   if (!trimmed) {
     return { correct: false, message: '답안을 입력해 주세요.' };
@@ -643,18 +453,7 @@ function checkQuizAnswer(item, userInput) {
 
   const normalizedInput = normalizeAnswer(trimmed);
   const normalizedAnswer = normalizeAnswer(item.answer);
-
-  if (item.type === 'short') {
-    const correct = normalizedInput.includes(normalizedAnswer) || normalizedAnswer.includes(normalizedInput);
-    return {
-      correct,
-      message: correct ? '정답입니다!' : '오답입니다.'
-    };
-  }
-
-  const keywords = (item.keywords || []).map((keyword) => normalizeAnswer(keyword));
-  const matchCount = keywords.filter((keyword) => normalizedInput.includes(keyword)).length;
-  const correct = matchCount >= Math.min(2, Math.max(1, keywords.length));
+  const correct = normalizedInput.includes(normalizedAnswer) || normalizedAnswer.includes(normalizedInput);
 
   return {
     correct,
@@ -662,50 +461,56 @@ function checkQuizAnswer(item, userInput) {
   };
 }
 
-function renderQuiz() {
-  const container = document.getElementById('quizContent');
-  const guide = document.getElementById('quizGuide');
-  if (!container) return;
-  const subject = subjects.find((item) => item.key === currentSubject) || subjects[0];
+function renderSubjectQuizPanel(subjectKey) {
+  const subject = subjects.find((item) => item.key === subjectKey);
+  if (!subject) return '';
+  const items = (typeof quizData !== 'undefined' && quizData[subjectKey] && quizData[subjectKey][currentView]) || [];
 
-  if (guide) {
-    guide.innerHTML = `
-      <h3>${subject.name} 퀴즈 안내</h3>
-      <p>${subject.summary}</p>
-      <ul>
-        <li>단답형은 핵심 용어를 먼저 떠올려 보세요.</li>
-        <li>서술형은 개념과 사례를 연결해 설명해 보세요.</li>
-        <li>정답 확인 후 모범 답안을 비교하며 복습해 보세요.</li>
-      </ul>
+  if (!items.length) {
+    return `
+      <article class="subject-panel">
+        <h3>${subject.name}</h3>
+        <p>이 영역의 퀴즈가 아직 준비되지 않았습니다.</p>
+      </article>
     `;
   }
 
-  container.innerHTML = `
-    <div class="quiz-list">
-      ${subject.quiz.map((item, index) => `
-        <article class="quiz-card">
-          <h3>${index + 1}. ${item.question}</h3>
-          <p class="quiz-type">${item.type === 'essay' ? '서술형' : '단답형'}</p>
-          ${item.type === 'essay'
-            ? '<textarea class="quiz-input" rows="4" placeholder="서술형 답안을 입력하세요."></textarea>'
-            : '<input class="quiz-input" type="text" placeholder="짧은 답을 입력하세요." />'}
-          <button class="submit-btn" type="button">정답 확인</button>
-          <div class="feedback" id="feedback-${subject.key}-${index}"></div>
-          <div class="answer-box" id="answer-${subject.key}-${index}"></div>
-        </article>
-      `).join('')}
-    </div>
+  return `
+    <article class="subject-panel">
+      <h3>${subject.name}</h3>
+      <div class="quiz-list">
+        ${items.map((item, index) => `
+          <article class="quiz-card" data-subject="${subjectKey}" data-index="${index}">
+            <h3>${index + 1}. ${item.question}</h3>
+            ${item.area ? `<p class="quiz-type">[${item.area}]</p>` : ''}
+            <input class="quiz-input" type="text" placeholder="빈칸에 들어갈 말을 입력하세요." />
+            <button class="submit-btn" type="button">정답 확인</button>
+            <div class="feedback" id="feedback-${subjectKey}-${currentView}-${index}"></div>
+            <div class="answer-box" id="answer-${subjectKey}-${currentView}-${index}"></div>
+          </article>
+        `).join('')}
+      </div>
+    </article>
   `;
+}
 
-  subject.quiz.forEach((item, index) => {
-    const card = container.querySelectorAll('.quiz-card')[index];
+function wireQuizPanel(subjectKey) {
+  const items = (typeof quizData !== 'undefined' && quizData[subjectKey] && quizData[subjectKey][currentView]) || [];
+  if (!items.length) return;
+  const container = document.getElementById('quizContent');
+  if (!container) return;
+  const cards = container.querySelectorAll(`.quiz-card[data-subject="${subjectKey}"]`);
+
+  items.forEach((item, index) => {
+    const card = cards[index];
+    if (!card) return;
     const input = card.querySelector('.quiz-input');
     const button = card.querySelector('.submit-btn');
-    const feedback = container.querySelector(`#feedback-${subject.key}-${index}`);
-    const answerBox = container.querySelector(`#answer-${subject.key}-${index}`);
+    const feedback = document.getElementById(`feedback-${subjectKey}-${currentView}-${index}`);
+    const answerBox = document.getElementById(`answer-${subjectKey}-${currentView}-${index}`);
 
     button.addEventListener('click', () => {
-      const result = checkQuizAnswer(item, input.value);
+      const result = checkBlankAnswer(item, input.value);
       feedback.className = `feedback ${result.correct ? 'correct' : 'wrong'}`;
       feedback.textContent = result.message;
       answerBox.textContent = result.correct ? '' : `모범 답안: ${item.answer}`;
@@ -713,12 +518,35 @@ function renderQuiz() {
   });
 }
 
+function renderQuiz() {
+  const container = document.getElementById('quizContent');
+  const guide = document.getElementById('quizGuide');
+  if (!container) return;
+  const school = schools.find((item) => item.key === currentSchool) || schools[0];
+
+  if (guide) {
+    guide.innerHTML = `
+      <h3>${school.name} 퀴즈 안내</h3>
+      <p>문장 속 빈칸(＿＿＿＿)에 들어갈 핵심 용어를 입력해 개념을 점검해 보세요.</p>
+      <ul>
+        <li>빈칸에는 핵심 개념어나 짧은 문구가 들어갑니다.</li>
+        <li>정답 확인 후 오답이면 모범 답안을 함께 확인해 보세요.</li>
+        <li>공부 탭과 동일한 순서(성격·목표 → 내용체계 → 성취기준 → 교수·학습 → 평가)로 구성되어 있습니다.</li>
+      </ul>
+    `;
+  }
+
+  container.innerHTML = school.subjectKeys.map((key) => renderSubjectQuizPanel(key)).join('');
+  school.subjectKeys.forEach((key) => wireQuizPanel(key));
+}
+
 if (pageType === 'study') {
-  renderTabs();
-  renderStudyViewTabs();
+  renderSchoolTabs();
+  renderViewTabs('studyViewTabs', renderStudy);
   renderStudy();
 } else {
   document.body.dataset.page = 'quiz';
-  renderTabs();
+  renderSchoolTabs();
+  renderViewTabs('quizViewTabs', renderQuiz);
   renderQuiz();
 }
