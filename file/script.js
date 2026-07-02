@@ -342,11 +342,11 @@ function renderSubjectTabs(containerId, onChange) {
   container.innerHTML = school.subjectKeys.map((key) => {
     const subject = subjects.find((item) => item.key === key);
     return `
-      <button class="sub-tab ${key === currentSubject ? 'active' : ''}" data-subject="${key}">${subject ? subject.name : key}</button>
+      <button class="subject-tab ${key === currentSubject ? 'active' : ''}" data-subject="${key}">${subject ? subject.name : key}</button>
     `;
   }).join('');
 
-  container.querySelectorAll('.sub-tab').forEach((button) => {
+  container.querySelectorAll('.subject-tab').forEach((button) => {
     button.addEventListener('click', () => {
       currentSubject = button.dataset.subject;
       renderSubjectTabs(containerId, onChange);
