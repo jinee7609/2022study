@@ -300,6 +300,7 @@ const studyViews = [
 
 const pageType = document.body.dataset.page || (window.location.pathname.includes('quiz') ? 'quiz' : 'study');
 let currentSchool = schools[0].key;
+let currentSubject = schools[0].subjectKeys[0];
 let currentView = 'goal';
 
 function renderSchoolTabs() {
@@ -314,12 +315,42 @@ function renderSchoolTabs() {
   tabBar.querySelectorAll('.tab-btn').forEach((button) => {
     button.addEventListener('click', () => {
       currentSchool = button.dataset.school;
+      const school = schools.find((item) => item.key === currentSchool) || schools[0];
+      currentSubject = school.subjectKeys[0];
       renderSchoolTabs();
       if (pageType === 'study') {
+        renderSubjectTabs('subjectTabs', renderStudy);
         renderStudy();
       } else {
+        renderSubjectTabs('subjectTabs', renderQuiz);
         renderQuiz();
       }
+    });
+  });
+}
+
+function renderSubjectTabs(containerId, onChange) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const school = schools.find((item) => item.key === currentSchool) || schools[0];
+
+  if (school.subjectKeys.length <= 1) {
+    container.innerHTML = '';
+    return;
+  }
+
+  container.innerHTML = school.subjectKeys.map((key) => {
+    const subject = subjects.find((item) => item.key === key);
+    return `
+      <button class="sub-tab ${key === currentSubject ? 'active' : ''}" data-subject="${key}">${subject ? subject.name : key}</button>
+    `;
+  }).join('');
+
+  container.querySelectorAll('.sub-tab').forEach((button) => {
+    button.addEventListener('click', () => {
+      currentSubject = button.dataset.subject;
+      renderSubjectTabs(containerId, onChange);
+      onChange();
     });
   });
 }
@@ -435,8 +466,7 @@ function renderSubjectStudyPanel(subjectKey) {
 function renderStudy() {
   const container = document.getElementById('studyContent');
   if (!container) return;
-  const school = schools.find((item) => item.key === currentSchool) || schools[0];
-  container.innerHTML = school.subjectKeys.map((key) => renderSubjectStudyPanel(key)).join('');
+  container.innerHTML = renderSubjectStudyPanel(currentSubject);
 }
 
 function normalizeAnswer(text) {
@@ -522,11 +552,11 @@ function renderQuiz() {
   const container = document.getElementById('quizContent');
   const guide = document.getElementById('quizGuide');
   if (!container) return;
-  const school = schools.find((item) => item.key === currentSchool) || schools[0];
+  const subject = subjects.find((item) => item.key === currentSubject) || subjects[0];
 
   if (guide) {
     guide.innerHTML = `
-      <h3>${school.name} 퀴즈 안내</h3>
+      <h3>${subject.name} 퀴즈 안내</h3>
       <p>문장 속 빈칸(＿＿＿＿)에 들어갈 핵심 용어를 입력해 개념을 점검해 보세요.</p>
       <ul>
         <li>빈칸에는 핵심 개념어나 짧은 문구가 들어갑니다.</li>
@@ -536,17 +566,19 @@ function renderQuiz() {
     `;
   }
 
-  container.innerHTML = school.subjectKeys.map((key) => renderSubjectQuizPanel(key)).join('');
-  school.subjectKeys.forEach((key) => wireQuizPanel(key));
+  container.innerHTML = renderSubjectQuizPanel(currentSubject);
+  wireQuizPanel(currentSubject);
 }
 
 if (pageType === 'study') {
   renderSchoolTabs();
+  renderSubjectTabs('subjectTabs', renderStudy);
   renderViewTabs('studyViewTabs', renderStudy);
   renderStudy();
 } else {
   document.body.dataset.page = 'quiz';
   renderSchoolTabs();
+  renderSubjectTabs('subjectTabs', renderQuiz);
   renderViewTabs('quizViewTabs', renderQuiz);
   renderQuiz();
 }

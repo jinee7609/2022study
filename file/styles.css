@@ -209,12 +209,6 @@ h2 {
   font-size: 1.2rem;
 }
 
-.subject-panel + .subject-panel {
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 2px solid var(--border);
-}
-
 .subject-panel p,
 .subject-panel li {
   color: var(--muted);
