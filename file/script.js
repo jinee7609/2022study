@@ -588,31 +588,33 @@ function renderQuiz() {
   wireQuizPanel(currentSubject);
 }
 
-function listHtml(items) {
-  return `<ul>${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+function splitChunks(titlePrefix, items, transform) {
+  const list = items.map((item) => (transform ? transform(item) : item));
+  if (list.length <= 1) {
+    return [{ title: titlePrefix, html: `<p>${list[0] || ''}</p>` }];
+  }
+  return list.map((item, index) => ({ title: `${titlePrefix} ${index + 1}`, html: `<p>${item}</p>` }));
 }
 
 function buildRecallChunks(curriculum, view) {
   if (view === 'goal') {
-    return [
-      { title: '가. 성격', html: curriculum.personality.map((p) => `<p>${p}</p>`).join('') },
-      {
-        title: '나. 목표',
-        html: `
-          ${curriculum.goalIntro.map((p) => `<p>${p}</p>`).join('')}
-          <ol>${curriculum.goalItems.map((item) => `<li>${stripNumberPrefix(item)}</li>`).join('')}</ol>
-        `
-      }
+    const chunks = [
+      ...splitChunks('가. 성격', curriculum.personality),
+      ...splitChunks('나. 목표 개관', curriculum.goalIntro)
     ];
+    curriculum.goalItems.forEach((item, index) => {
+      chunks.push({ title: `목표 (${index + 1})`, html: `<p>${stripNumberPrefix(item)}</p>` });
+    });
+    return chunks;
   }
   if (view === 'content') {
     const chunks = [];
     curriculum.contentAreas.forEach((area, index) => {
       const label = `(${index + 1}) ${area.name}`;
-      chunks.push({ title: `${label} · 핵심 아이디어`, html: listHtml(area.coreIdeas) });
-      chunks.push({ title: `${label} · 지식·이해`, html: listHtml(area.knowledge) });
-      chunks.push({ title: `${label} · 과정·기능`, html: listHtml(area.process) });
-      chunks.push({ title: `${label} · 가치·태도`, html: listHtml(area.values) });
+      chunks.push(...splitChunks(`${label} · 핵심 아이디어`, area.coreIdeas));
+      chunks.push(...splitChunks(`${label} · 지식·이해`, area.knowledge));
+      chunks.push(...splitChunks(`${label} · 과정·기능`, area.process));
+      chunks.push(...splitChunks(`${label} · 가치·태도`, area.values));
     });
     return chunks;
   }
@@ -620,25 +622,25 @@ function buildRecallChunks(curriculum, view) {
     const chunks = [];
     curriculum.standardAreas.forEach((area, index) => {
       const label = `(${index + 1}) ${area.name}`;
-      chunks.push({ title: `${label} · 성취기준`, html: listHtml(area.standards) });
+      chunks.push(...splitChunks(`${label} · 성취기준`, area.standards));
       if (area.explanations.length) {
-        chunks.push({ title: `${label} · 성취기준 해설`, html: listHtml(area.explanations) });
+        chunks.push(...splitChunks(`${label} · 해설`, area.explanations));
       }
       if (area.considerations.length) {
-        chunks.push({ title: `${label} · 적용 시 고려 사항`, html: listHtml(area.considerations) });
+        chunks.push(...splitChunks(`${label} · 고려 사항`, area.considerations));
       }
     });
     return chunks;
   }
   if (view === 'teach') {
     return [
-      { title: '(1) 교수·학습의 방향', html: listHtml(curriculum.teachDirection) },
-      { title: '(2) 교수·학습 방법', html: listHtml(curriculum.teachMethod) }
+      ...splitChunks('(1) 교수·학습의 방향', curriculum.teachDirection),
+      ...splitChunks('(2) 교수·학습 방법', curriculum.teachMethod)
     ];
   }
   return [
-    { title: '(1) 평가의 방향', html: listHtml(curriculum.evalDirection) },
-    { title: '(2) 평가 방법', html: listHtml(curriculum.evalMethod) }
+    ...splitChunks('(1) 평가의 방향', curriculum.evalDirection),
+    ...splitChunks('(2) 평가 방법', curriculum.evalMethod)
   ];
 }
 
