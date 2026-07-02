@@ -588,81 +588,58 @@ function renderQuiz() {
   wireQuizPanel(currentSubject);
 }
 
+function listHtml(items) {
+  return `<ul>${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+}
+
 function buildRecallChunks(curriculum, view) {
   if (view === 'goal') {
-    return [{
-      title: '가·나. 성격과 목표',
-      html: `
-        <h4>가. 성격</h4>
-        ${curriculum.personality.map((p) => `<p>${p}</p>`).join('')}
-        <h4>나. 목표</h4>
-        ${curriculum.goalIntro.map((p) => `<p>${p}</p>`).join('')}
-        <ol>
-          ${curriculum.goalItems.map((item) => `<li>${stripNumberPrefix(item)}</li>`).join('')}
-        </ol>
-      `
-    }];
+    return [
+      { title: '가. 성격', html: curriculum.personality.map((p) => `<p>${p}</p>`).join('') },
+      {
+        title: '나. 목표',
+        html: `
+          ${curriculum.goalIntro.map((p) => `<p>${p}</p>`).join('')}
+          <ol>${curriculum.goalItems.map((item) => `<li>${stripNumberPrefix(item)}</li>`).join('')}</ol>
+        `
+      }
+    ];
   }
   if (view === 'content') {
-    return curriculum.contentAreas.map((area, index) => ({
-      title: `(${index + 1}) ${area.name}`,
-      html: `
-        <p class="area-label">핵심 아이디어</p>
-        <ul>${area.coreIdeas.map((idea) => `<li>${idea}</li>`).join('')}</ul>
-        <div class="study-highlights study-highlights-3">
-          <div class="study-highlight-card">
-            <h4>지식·이해</h4>
-            <ul>${area.knowledge.map((item) => `<li>${item}</li>`).join('')}</ul>
-          </div>
-          <div class="study-highlight-card">
-            <h4>과정·기능</h4>
-            <ul>${area.process.map((item) => `<li>${item}</li>`).join('')}</ul>
-          </div>
-          <div class="study-highlight-card">
-            <h4>가치·태도</h4>
-            <ul>${area.values.map((item) => `<li>${item}</li>`).join('')}</ul>
-          </div>
-        </div>
-      `
-    }));
+    const chunks = [];
+    curriculum.contentAreas.forEach((area, index) => {
+      const label = `(${index + 1}) ${area.name}`;
+      chunks.push({ title: `${label} · 핵심 아이디어`, html: listHtml(area.coreIdeas) });
+      chunks.push({ title: `${label} · 지식·이해`, html: listHtml(area.knowledge) });
+      chunks.push({ title: `${label} · 과정·기능`, html: listHtml(area.process) });
+      chunks.push({ title: `${label} · 가치·태도`, html: listHtml(area.values) });
+    });
+    return chunks;
   }
   if (view === 'standard') {
-    return curriculum.standardAreas.map((area, index) => ({
-      title: `(${index + 1}) ${area.name}`,
-      html: `
-        <p class="area-label">성취기준</p>
-        <ul>${area.standards.map((item) => `<li>${item}</li>`).join('')}</ul>
-        ${area.explanations.length ? `
-          <p class="area-label">성취기준 해설</p>
-          <ul>${area.explanations.map((item) => `<li>${item}</li>`).join('')}</ul>
-        ` : ''}
-        ${area.considerations.length ? `
-          <p class="area-label">성취기준 적용 시 고려 사항</p>
-          <ul>${area.considerations.map((item) => `<li>${item}</li>`).join('')}</ul>
-        ` : ''}
-      `
-    }));
+    const chunks = [];
+    curriculum.standardAreas.forEach((area, index) => {
+      const label = `(${index + 1}) ${area.name}`;
+      chunks.push({ title: `${label} · 성취기준`, html: listHtml(area.standards) });
+      if (area.explanations.length) {
+        chunks.push({ title: `${label} · 성취기준 해설`, html: listHtml(area.explanations) });
+      }
+      if (area.considerations.length) {
+        chunks.push({ title: `${label} · 적용 시 고려 사항`, html: listHtml(area.considerations) });
+      }
+    });
+    return chunks;
   }
   if (view === 'teach') {
-    return [{
-      title: '교수·학습',
-      html: `
-        <h4>(1) 교수·학습의 방향</h4>
-        <ul>${curriculum.teachDirection.map((item) => `<li>${item}</li>`).join('')}</ul>
-        <h4>(2) 교수·학습 방법</h4>
-        <ul>${curriculum.teachMethod.map((item) => `<li>${item}</li>`).join('')}</ul>
-      `
-    }];
+    return [
+      { title: '(1) 교수·학습의 방향', html: listHtml(curriculum.teachDirection) },
+      { title: '(2) 교수·학습 방법', html: listHtml(curriculum.teachMethod) }
+    ];
   }
-  return [{
-    title: '평가',
-    html: `
-      <h4>(1) 평가의 방향</h4>
-      <ul>${curriculum.evalDirection.map((item) => `<li>${item}</li>`).join('')}</ul>
-      <h4>(2) 평가 방법</h4>
-      <ul>${curriculum.evalMethod.map((item) => `<li>${item}</li>`).join('')}</ul>
-    `
-  }];
+  return [
+    { title: '(1) 평가의 방향', html: listHtml(curriculum.evalDirection) },
+    { title: '(2) 평가 방법', html: listHtml(curriculum.evalMethod) }
+  ];
 }
 
 function renderSubjectRecallPanel(subjectKey) {
